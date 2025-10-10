@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+.custom_hover:hover {
+  color: #5f63e0 !important;
+  transition: 0.3s ease-in-out !important;
+}
