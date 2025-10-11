@@ -1,6 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@100..900&display=swap");
 @import "tailwindcss";
 
+body {
+  font-family: "Jost", sans-serif;
+}
+
 .custom_hover:hover {
+  color: #5f63e0 !important;
+  transition: 0.3s ease-in-out !important;
+}
+
+.my-app-dark .custom_hover:hover {
   color: #5f63e0 !important;
   transition: 0.3s ease-in-out !important;
 }

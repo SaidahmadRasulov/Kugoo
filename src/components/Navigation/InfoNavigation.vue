@@ -1,5 +1,5 @@
 <template>
-  <div class="border-b-1 border-gray-300 py-4 bg-white">
+  <div class="border-b-1 border-gray-300 py-4">
     <div class="container mx-auto">
       <div class="top_navbar flex items-center justify-between">
         <ul class="top_group flex items-center gap-10">
@@ -57,7 +57,12 @@
           </li>
         </ul>
         <div class="top_contact flex items-center gap-2">
-          <a href="tel:+7 (800) 505-54-61" class="custom_hover">+7 (800) 505-54-61 </a>
+          <Button @click="toggleMode">
+            <i class="pi pi-moon"></i>
+          </Button>
+          <a href="tel:+7 (800) 505-54-61" class="custom_hover text-[var(--p-text-secondary-color)] font-semibold text-lg"
+            >+7 (800) 505-54-61
+          </a>
           <ContactsPanel />
         </div>
       </div>
@@ -68,7 +73,16 @@
 import { RouterLink } from "vue-router";
 import ContactsPanel from "../ContactsPanel.vue";
 
-export default {};
+export default {
+  methods: {
+    toggleMode() {
+      document.body.classList.toggle("my-app-dark");
+    },
+    togglePanel() {
+      this.$refs.op.toggle(event);
+    },
+  },
+};
 </script>
 <style scoped>
 .custom_hover:hover {

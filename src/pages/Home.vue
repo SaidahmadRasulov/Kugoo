@@ -1,9 +1,11 @@
 <template>
     <div>
-        <h1>Home Page</h1>
+        <HomeHeader />
     </div>
 </template>
 <script>
+import HomeHeader from '../components/HomeHeader.vue';
+
 export default {
     
 }

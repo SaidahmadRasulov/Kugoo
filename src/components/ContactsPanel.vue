@@ -16,9 +16,9 @@
           v-for="(item, index) in contacts"
           :key="index"
           class="pb-2 mb-2"
-          :class="{ 'border-b': index !== contacts.length - 1 }"
+          :class="{ 'border-b border-[var(--p-text-secondary-color)]': index !== contacts.length - 1 }"
         >
-          <div class="font-semibold text-sm text-gray-600 dark:text-gray-300">
+          <div class="font-semibold text-sm text-[var(--p-text-secondary-color)]">
             {{ item.title }}
           </div>
           <div class="text-lg font-bold text-gray-900 dark:text-white">

@@ -89,7 +89,7 @@ export const prime_options = {
     preset: MyPreset,
     options: {
       prefix: 'p',
-      darkModeSelector: 'system',
+      darkModeSelector: '.my-app-dark',
       cssLayer: false
     },
     ripple: true
