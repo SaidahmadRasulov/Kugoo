@@ -2,7 +2,7 @@
   <div class="container mx-auto py-2 md:my-4 px-4">
     <!-- Мобильная версия: вертикальная раскладка -->
     <div class="flex flex-col md:hidden gap-3">
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-around">
         <RouterLink to="/">
           <h1
             class="text-2xl font-bold hover:text-[#5f63e0] transition-colors duration-300 uppercase text-[var(--p-text-color)]"
@@ -45,7 +45,9 @@
             <i class="pi pi-moon text-sm md:text-base"></i>
           </Button>
           <RouterLink to="/caller" class="">
-            <i class="pi pi-phone text-base text-[var(--p-primary-hover-color)]"></i>
+            <i
+              class="pi pi-phone text-base text-[var(--p-primary-hover-color)]"
+            ></i>
           </RouterLink>
           <div class="relative">
             <Button
@@ -57,65 +59,89 @@
             <!-- Меню-панель -->
             <div
               v-if="showMenu"
-              class="absolute flex items-center justify-center top-full h-[70vh] -right-4 w-screen z-50 bg-[var(--p-surface-overlay)] rounded-b-xl"
+              class="absolute top-full h-[92vh] -right-7.5 w-screen mx-auto z-50 bg-[var(--p-surface-overlay)] rounded-b-xl"
               @click.self="showMenu = false"
             >
-              <ul class="flex text-[var(--p-text-color)] flex-col gap-4 w-full">
-                <li class="w-full">
-                  <RouterLink
-                    to="/about"
-                    class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                    @click="showMenu = false"
-                  >
-                    О магазине
-                  </RouterLink>
-                </li>
-                <li class="w-full">
-                  <RouterLink
-                    to="/payment"
-                    class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                    @click="showMenu = false"
-                  >
-                    Доставка и оплата
-                  </RouterLink>
-                </li>
-                <li class="w-full">
-                  <RouterLink
-                    to="/testing"
-                    class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                    @click="showMenu = false"
-                  >
-                    Тест-драйв
-                  </RouterLink>
-                </li>
-                <li class="w-full">
-                  <RouterLink
-                    to="/blog"
-                    class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                    @click="showMenu = false"
-                  >
-                    Блог
-                  </RouterLink>
-                </li>
-                <li class="w-full">
-                  <RouterLink
-                    to="/contacts"
-                    class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                    @click="showMenu = false"
-                  >
-                    Контакты
-                  </RouterLink>
-                </li>
-                <li class="w-full">
-                  <RouterLink
-                    to="/discounts"
-                    class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full gap-2"
-                    @click="showMenu = false"
-                  >
-                    Акции <i class="pi pi-percentage"></i>
-                  </RouterLink>
-                </li>
-              </ul>
+              <div class="flex items-center justify-center">
+                <ul
+                  class="flex text-[var(--p-text-color)] flex-col gap-4 w-full"
+                >
+                  <li class="w-full">
+                    <RouterLink
+                      to="/about"
+                      class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
+                      @click="showMenu = false"
+                    >
+                      О магазине
+                    </RouterLink>
+                  </li>
+                  <li class="w-full">
+                    <RouterLink
+                      to="/payment"
+                      class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
+                      @click="showMenu = false"
+                    >
+                      Доставка и оплата
+                    </RouterLink>
+                  </li>
+                  <li class="w-full">
+                    <RouterLink
+                      to="/testing"
+                      class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
+                      @click="showMenu = false"
+                    >
+                      Тест-драйв
+                    </RouterLink>
+                  </li>
+                  <li class="w-full">
+                    <RouterLink
+                      to="/blog"
+                      class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
+                      @click="showMenu = false"
+                    >
+                      Блог
+                    </RouterLink>
+                  </li>
+                  <li class="w-full">
+                    <RouterLink
+                      to="/contacts"
+                      class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
+                      @click="showMenu = false"
+                    >
+                      Контакты
+                    </RouterLink>
+                  </li>
+                  <li class="w-full">
+                    <RouterLink
+                      to="/discounts"
+                      class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full gap-2"
+                      @click="showMenu = false"
+                    >
+                      Акции <i class="pi pi-percentage"></i>
+                    </RouterLink>
+                  </li>
+                </ul>
+              </div>
+              <div class="menu_subitems flex gap-10 justify-center items-center">
+                <RouterLink
+                  to="/service"
+                  class="text-[var(--p-text-color)] px-2 text-sm hover:bg-[var(--p-surface-section)] transition rounded"
+                >
+                  Сервис
+                </RouterLink>
+                <RouterLink
+                  to="/partner"
+                  class="text-[var(--p-text-color)] text-center text-sm hover:bg-[var(--p-surface-section)] transition rounded"
+                >
+                  Сотрудничество
+                </RouterLink>
+                <a
+                  href="tel:+7XXXXXXXXXX"
+                  class="text-[var(--p-text-color)] text-sm hover:bg-[var(--p-surface-section)] transition rounded cursor-pointer"
+                >
+                  Заказать звонок
+                </a>
+              </div>
             </div>
           </div>
         </div>

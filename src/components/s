@@ -5,7 +5,9 @@
       @mouseenter="stopAutoplay"
       @mouseleave="startAutoplay"
     >
-      <div class="header_title w-1/2 flex flex-col gap-4 text-[var(--p-primary-contrast-color)]">
+      <div
+        class="header_title w-1/2 flex flex-col gap-4 text-[var(--p-primary-contrast-color)]"
+      >
         <div class="md:h-[12rem]">
           <span
             class="badge p-1 text-sm border border-white rounded-md uppercase w-fit"
@@ -91,22 +93,26 @@ export default {
         },
         {
           title: "Комфортные городские прогулки",
-          subtitle: "Подвеска, широкая дека и регулировка руля для максимального удобства",
+          subtitle:
+            "Подвеска, широкая дека и регулировка руля для максимального удобства",
           img: defaultImage,
         },
         {
           title: "Безопасные ночные поездки",
-          subtitle: "Яркая подсветка, сигнализация и приложение для контроля маршрута",
+          subtitle:
+            "Яркая подсветка, сигнализация и приложение для контроля маршрута",
           img: defaultImage,
         },
         {
           title: "Сезонные скидки на новые модели",
-          subtitle: "Выгодные предложения весенней коллекции — только до конца месяца",
+          subtitle:
+            "Выгодные предложения весенней коллекции — только до конца месяца",
           img: defaultImage,
         },
         {
           title: "Гарантия и сервисное обслуживание",
-          subtitle: "Бесплатная диагностика и поддержка в течение всего гарантийного срока",
+          subtitle:
+            "Бесплатная диагностика и поддержка в течение всего гарантийного срока",
           img: defaultImage,
         },
       ],
@@ -133,7 +139,10 @@ export default {
       if (this.slides.length <= 1) {
         return;
       }
-      this.autoplayTimer = window.setInterval(this.autoAdvance, this.autoplayDelay);
+      this.autoplayTimer = window.setInterval(
+        this.autoAdvance,
+        this.autoplayDelay
+      );
     },
     stopAutoplay() {
       if (this.autoplayTimer !== null) {
@@ -152,26 +161,17 @@ export default {
       if (this.currentSlide < this.lastSlideIndex) {
         this.currentSlide += 1;
       }
-      this.startAutoplay();
     },
     prevSlide() {
       if (this.currentSlide > 0) {
         this.currentSlide -= 1;
       }
-      this.startAutoplay();
     },
     goToSlide(index) {
       if (index >= 0 && index <= this.lastSlideIndex) {
         this.currentSlide = index;
       }
-      this.startAutoplay();
     },
-  },
-  mounted() {
-    this.startAutoplay();
-  },
-  beforeUnmount() {
-    this.stopAutoplay();
   },
 };
 </script>
@@ -225,7 +225,11 @@ export default {
 
 .slide-progress__indicator {
   height: 100%;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 1));
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 1)
+  );
   border-radius: 9999px;
   transition: width 0.45s ease-in-out;
   will-change: width;

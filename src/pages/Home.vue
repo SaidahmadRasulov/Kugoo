@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg-[var(--p-surface-section)] h-full">
         <HomeHeader />
     </div>
 </template>
