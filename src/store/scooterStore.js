@@ -1,77 +1,6 @@
 import { defineStore } from "pinia";
 
-const SCOOTER_CATALOG = Object.freeze([
-  {
-    id: "kugoo-g1",
-    title: "Kugoo G1",
-    category: "elo_scoot",
-    features: ["offroad", "with-seat"],
-    audience: ["adults"],
-    price: 89900,
-    stock: 12,
-    description: "Мощный электросамокат для загородных поездок",
-  },
-  {
-    id: "kugoo-s3",
-    title: "Kugoo S3",
-    category: "elo_scoot",
-    features: ["city", "without-seat"],
-    audience: ["adults"],
-    price: 34900,
-    stock: 25,
-    description: "Лёгкий городской самокат с запасом хода до 30 км",
-  },
-  {
-    id: "kugoo-mini-s",
-    title: "Kugoo Mini S",
-    category: "elo_scoot",
-    features: ["city", "without-seat"],
-    audience: ["kids"],
-    price: 25900,
-    stock: 8,
-    description: "Компактный самокат для детей и подростков",
-  },
-  {
-    id: "citycoco-rapid",
-    title: "Citycoco Rapid",
-    category: "scoot",
-    features: ["with-seat", "city"],
-    audience: ["adults"],
-    price: 129900,
-    stock: 6,
-    description: "Электроскутер с комфортным сиденьем и широкими колёсами",
-  },
-  {
-    id: "x-motion-cargo",
-    title: "X-Motion Cargo",
-    category: "elo_bike",
-    features: ["offroad", "with-seat"],
-    audience: ["adults"],
-    price: 159900,
-    stock: 4,
-    description: "Грузовой электровелосипед с большим запасом хода",
-  },
-  {
-    id: "robovac-lite",
-    title: "RoboVac Lite",
-    category: "robot_vac",
-    features: ["city"],
-    audience: ["seniors", "adults"],
-    price: 19900,
-    stock: 40,
-    description: "Робот-пылесос с поддержкой мобильного приложения",
-  },
-  {
-    id: "smartscale-pro",
-    title: "SmartScale Pro",
-    category: "scales",
-    features: ["city"],
-    audience: ["adults", "seniors"],
-    price: 9900,
-    stock: 30,
-    description: "Умные весы с анализом состава тела и синхронизацией по Bluetooth",
-  },
-]);
+import { SCOOTER_CATALOG, SCOOTER_META } from "../assets/Scooter_Date";
 
 export const useScooterStore = defineStore("scooter", {
   state: () => ({
@@ -89,14 +18,38 @@ export const useScooterStore = defineStore("scooter", {
 
   getters: {
     categories() {
-      return [...new Set(this.allProducts.map((product) => product.category))];
+      return SCOOTER_META.categories;
     },
     filteredByCategory: (state) => {
       if (!state.query.category) {
         return state.allProducts;
       }
       return state.allProducts.filter(
-        (product) => product.category === state.query.category
+        (product) => product.categoryKey === state.query.category
+      );
+    },
+    topSellers: (state) =>
+      state.allProducts.filter(
+        (product) =>
+          product.topSeller &&
+          (product.categoryKey === "elo_scoot" ||
+            product.categoryKey === "scoot" ||
+            product.categoryKey === "elo_bike")
+      ),
+    filteredByType: (state) => (filter) => {
+      const personalMobilityProducts = state.allProducts.filter(
+        (product) =>
+          product.categoryKey === "elo_scoot" ||
+          product.categoryKey === "scoot" ||
+          product.categoryKey === "elo_bike"
+      );
+
+      if (!filter) {
+        return personalMobilityProducts;
+      }
+
+      return personalMobilityProducts.filter(
+        (product) => Array.isArray(product.audience) && product.audience.includes(filter)
       );
     },
   },
@@ -119,7 +72,7 @@ export const useScooterStore = defineStore("scooter", {
       const categoryFilter = this.query.category;
 
       const result = this.allProducts.filter((product) => {
-        if (categoryFilter && product.category !== categoryFilter) {
+        if (categoryFilter && product.categoryKey !== categoryFilter) {
           return false;
         }
 
