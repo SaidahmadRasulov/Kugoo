@@ -1,54 +1,67 @@
 <template>
-  <div class="scooters py-8 ">
+  <div class="scooters py-8 bg-[var(--p-surface-ground)]">
     <div class="container mx-auto">
-      <div class="scooter_title flex flex-col items-center justify-between">
-        <h1 class="uppercase text-2xl lg:text-4xl mb-4">Электросамокаты</h1>
-        <div class="scooter_filter justify-end text-2xl flex gap-2 items-center">
+      <div
+        class="scooter_title flex sm:flex-row flex-col items-center justify-between"
+      >
+        <h1
+          class="uppercase text-2xl lg:text-4xl mb-4 text-[var(--p-text-color)]"
+        >
+          Электросамокаты
+        </h1>
+        <div
+          class="scooter_filter sm:justify-end text-sm text-[var(--p-text-color)] flex flex-wrap md:flex-nowrap gap-1 items-center px-4 justify-between"
+        >
           <button
-            class="border-2 px-2 py-2 rounded cursor-pointer"
+            class="w-[9rem] border-2 px-2 py-2 rounded cursor-pointer"
             @click="filterByAudience('')"
             :class="{
-              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]': activeFilter === '',
+              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]':
+                activeFilter === '',
               'border-transparent': activeFilter !== '',
             }"
           >
             Хиты продаж
           </button>
           <button
-            class="border-2 px-4 py-2 rounded cursor-pointer"
+            class="w-[9rem] border-2 px-4 py-2 rounded cursor-pointer"
             @click="filterByAudience('city')"
             :class="{
-              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]': activeFilter === 'city',
+              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]':
+                activeFilter === 'city',
               'border-transparent': activeFilter !== 'city',
             }"
           >
             Для города
           </button>
           <button
-            class="border-2 px-4 py-2 rounded cursor-pointer"
+            class="w-[9rem] border-2 px-4 py-2 rounded cursor-pointer"
             @click="filterByAudience('adults')"
             :class="{
-              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]': activeFilter === 'adults',
+              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]':
+                activeFilter === 'adults',
               'border-transparent': activeFilter !== 'adults',
             }"
           >
             Для взрослых
           </button>
           <button
-            class="border-2 px-4 py-2 rounded cursor-pointer"
+            class="w-[9rem] border-2 px-4 py-2 rounded cursor-pointer"
             @click="filterByAudience('kids')"
             :class="{
-              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]': activeFilter === 'kids',
+              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]':
+                activeFilter === 'kids',
               'border-transparent': activeFilter !== 'kids',
             }"
           >
             Для детей
           </button>
           <button
-            class="border-2 px-4 py-2 rounded cursor-pointer"
+            class="w-[9rem] border-2 p-2 rounded cursor-pointer"
             @click="filterByAudience('seniors')"
             :class="{
-              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]': activeFilter === 'seniors',
+              'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]':
+                activeFilter === 'seniors',
               'border-transparent': activeFilter !== 'seniors',
             }"
           >
@@ -56,7 +69,7 @@
           </button>
         </div>
       </div>
-      <div class="scooters_date mt-8">
+      <div class="scooters_date mt-8 p-2">
         <div
           v-if="visibleScooters.length"
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
@@ -67,15 +80,27 @@
             class="rounded-xl bg-[var(--p-surface-overlay)] shadow-md flex flex-col justify-between"
           >
             <header class="mb-4">
-              <img src="../assets/scooter.jpg" class="rounded-t-2xl" alt="">
-              <p class="p-2 text-xs uppercase tracking-wide text-[var(--p-text-secondary-color)]">
-                {{ item.category }}
-              </p>
-              <h2 class="p-2 mt-2 text-lg font-semibold text-[var(--p-text-color)]">
+              <div class="header_content relative">
+                <img
+                  src="../assets/scooter.jpg"
+                  class=" z-0 rounded-t-2xl"
+                  alt=""
+                />
+                <p
+                  class="absolute bottom-0 z-50 top-0 p-2 bg-[var(--p-primary-color)]/80 rounded-tl-2xl h-fit uppercase text-[var(--p-text-color)]"
+                >
+                  {{ item.badge }}
+                </p>
+              </div>
+              <h2
+                class="p-2 mt-2 text-lg font-semibold text-[var(--p-text-color)]"
+              >
                 {{ item.title }}
               </h2>
             </header>
-            <p class="p-2 text-sm text-[var(--p-text-secondary-color)] line-clamp-3">
+            <p
+              class="p-2 text-sm text-[var(--p-text-secondary-color)] line-clamp-3"
+            >
               {{ item.description }}
             </p>
             <footer class="p-2 mt-6 flex items-center justify-between">
@@ -88,7 +113,10 @@
             </footer>
           </article>
         </div>
-        <div v-else class="py-12 text-center text-[var(--p-text-secondary-color)]">
+        <div
+          v-else
+          class="py-12 text-center text-[var(--p-text-secondary-color)]"
+        >
           Товары не найдены.
         </div>
         <div v-if="canLoadMore" class="mt-10 flex justify-center">
@@ -97,7 +125,7 @@
             class="cursor-pointer px-6 py-3 rounded-lg border border-[var(--p-primary-color)] text-[var(--p-primary-color)] font-medium hover:bg-[var(--p-primary-color)] hover:text-[var(--p-primary-contrast-color)] transition-colors duration-300"
             @click="loadMore"
           >
-            Просмотреть ещё
+            Смотреть ещё
           </button>
         </div>
       </div>
