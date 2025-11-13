@@ -1,11 +1,11 @@
 <template>
   <div class="scooters py-8 ">
     <div class="container mx-auto">
-      <div class="scooter_title flex items-center justify-between">
-        <h1 class="uppercase text-4xl">Электросамокаты</h1>
-        <div class="scooter_filter justify-end flex gap-4 items-center">
+      <div class="scooter_title flex flex-col items-center justify-between">
+        <h1 class="uppercase text-2xl lg:text-4xl mb-4">Электросамокаты</h1>
+        <div class="scooter_filter justify-end text-2xl flex gap-2 items-center">
           <button
-            class="border-2 px-4 py-2 rounded cursor-pointer"
+            class="border-2 px-2 py-2 rounded cursor-pointer"
             @click="filterByAudience('')"
             :class="{
               'active border-[var(--p-primary-color)] text-[var(--p-primary-color)]': activeFilter === '',

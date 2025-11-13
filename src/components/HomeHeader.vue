@@ -6,7 +6,7 @@
       @mouseleave="startAutoplay"
     >
       <div class="header_title w-1/2 flex flex-col gap-4 text-[var(--p-primary-contrast-color)]">
-        <div class="md:h-[12rem]">
+        <div class="md:h-[16rem]">
           <span
             class="badge p-1 text-sm border border-white rounded-md uppercase w-fit"
             >Новинка</span
