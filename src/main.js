@@ -6,5 +6,8 @@ import {router} from './router'
 import { prime_options } from './assets/prime_vue_config.js';
 import 'primeicons/primeicons.css'
 import { OhVueIcon } from "./utils/iconsUtils.js"
+import { createPinia } from 'pinia';
 
-createApp(App).use(router).use(PrimeVue, prime_options).component("v-icon", OhVueIcon).mount('#app')
+const pinia = createPinia()
+
+createApp(App).use(router).use(pinia).use(PrimeVue, prime_options).component("v-icon", OhVueIcon).mount('#app')

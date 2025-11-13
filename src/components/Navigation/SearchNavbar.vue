@@ -41,7 +41,7 @@
           </li>
         </ul>
         <div class="mobile_menu flex items-center justify-center gap-4">
-          <Button @click="toggleMode" class="p-2 md:p-3">
+          <Button @click="toggleMode" class="p-2 md:p-3" aria-label="Переключить тему">
             <i class="pi pi-moon text-sm md:text-base"></i>
           </Button>
           <RouterLink to="/caller" class="">
@@ -51,16 +51,19 @@
           </RouterLink>
           <div class="relative">
             <Button
-              @click="showMenu = !showMenu"
+              @click="toggleMobileMenu"
               class="ml-2 p-2 w-10 flex items-center justify-center"
+              :aria-expanded="isMobileMenuOpen"
+              aria-controls="mobile-navigation-menu"
             >
               <i class="pi pi-bars text-base"></i>
             </Button>
             <!-- Меню-панель -->
             <div
-              v-if="showMenu"
+              v-if="isMobileMenuOpen"
+              id="mobile-navigation-menu"
               class="absolute top-full h-[92vh] -right-7.5 w-screen mx-auto z-50 bg-[var(--p-surface-overlay)] rounded-b-xl"
-              @click.self="showMenu = false"
+              @click.self="closeMobileMenu"
             >
               <div class="flex items-center justify-center">
                 <ul
@@ -70,7 +73,7 @@
                     <RouterLink
                       to="/about"
                       class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                      @click="showMenu = false"
+                      @click="closeMobileMenu"
                     >
                       О магазине
                     </RouterLink>
@@ -79,7 +82,7 @@
                     <RouterLink
                       to="/payment"
                       class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                      @click="showMenu = false"
+                      @click="closeMobileMenu"
                     >
                       Доставка и оплата
                     </RouterLink>
@@ -88,7 +91,7 @@
                     <RouterLink
                       to="/testing"
                       class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                      @click="showMenu = false"
+                      @click="closeMobileMenu"
                     >
                       Тест-драйв
                     </RouterLink>
@@ -97,7 +100,7 @@
                     <RouterLink
                       to="/blog"
                       class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                      @click="showMenu = false"
+                      @click="closeMobileMenu"
                     >
                       Блог
                     </RouterLink>
@@ -106,7 +109,7 @@
                     <RouterLink
                       to="/contacts"
                       class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full border-b border-b-[var(--p-surface-ground)]"
-                      @click="showMenu = false"
+                      @click="closeMobileMenu"
                     >
                       Контакты
                     </RouterLink>
@@ -115,7 +118,7 @@
                     <RouterLink
                       to="/discounts"
                       class="flex justify-center items-center py-4 transition hover:bg-[var(--p-surface-section)] text-center w-full gap-2"
-                      @click="showMenu = false"
+                      @click="closeMobileMenu"
                     >
                       Акции <i class="pi pi-percentage"></i>
                     </RouterLink>
@@ -148,21 +151,31 @@
       </div>
       <div class="flex flex-col gap-3">
         <div class="catalog_selection relative md:block hidden">
-          <Button @click="toggleVisible" class="relative w-full">
+          <Button
+            @click="toggleCatalogVisibility"
+            class="relative w-full"
+            :aria-expanded="isCatalogVisible"
+            aria-controls="mobile-catalog-menu"
+          >
             <i class="pi pi-bars"></i>
             Каталог
           </Button>
-          <div class="absolute left-0 top-full mt-2 z-50">
-            <CatalogMenu v-if="visible" />
+          <div class="absolute left-0 top-full mt-2 z-50" id="mobile-catalog-menu">
+            <CatalogMenu
+              v-if="isCatalogVisible"
+              @select-category="onCategorySelect"
+              @select-filter="onFilterSelect"
+            />
           </div>
         </div>
         <InputGroup class="w-full">
           <InputText
             class="!w-full"
-            v-model="text1"
+            v-model="searchQuery"
             placeholder="Искать самокат KUGO"
+            @keyup.enter="executeSearch('manual')"
           />
-          <Button>
+          <Button @click="executeSearch('manual')" aria-label="Выполнить поиск">
             <i class="pi pi-search"></i>
           </Button>
         </InputGroup>
@@ -179,28 +192,39 @@
       </RouterLink>
       <div class="w-full flex gap-4 items-center">
         <div class="catalog_selection relative">
-          <Button @click="toggleVisible" class="relative">
+          <Button
+            @click="toggleCatalogVisibility"
+            class="relative"
+            :aria-expanded="isCatalogVisible"
+            aria-controls="desktop-catalog-menu"
+          >
             <i class="pi pi-bars"></i>
             Каталог
           </Button>
-          <div class="absolute left-0 top-full mt-2 z-50">
-            <CatalogMenu v-if="visible" />
+          <div class="absolute left-0 top-full mt-2 z-50" id="desktop-catalog-menu">
+            <CatalogMenu
+              v-if="isCatalogVisible"
+              @select-category="onCategorySelect"
+              @select-filter="onFilterSelect"
+            />
           </div>
         </div>
         <InputGroup>
           <Select
-            v-model="selectedCity"
+            v-model="selectedPlace"
             :options="places"
             optionLabel="name"
             placeholder="Везде"
             class="!w-1/6"
+            @change="executeSearch('place')"
           />
           <InputText
             class="!w-full"
-            v-model="text1"
+            v-model="searchQuery"
             placeholder="Искать самокат KUGO"
+            @keyup.enter="executeSearch('manual')"
           />
-          <Button>
+          <Button @click="executeSearch('manual')" aria-label="Выполнить поиск">
             <i class="pi pi-search"></i>
           </Button>
         </InputGroup>
@@ -242,28 +266,182 @@
 
 <script>
 import { RouterLink } from "vue-router";
+import { mapStores } from "pinia";
 import Select from "primevue/select";
 import CatalogMenu from "./CatalogMenu.vue";
+import { useScooterStore } from "../../store/scooterStore";
+
+const PLACES = Object.freeze([
+  { name: "Amazon", code: "AZ" },
+  { name: "Google", code: "GG" },
+  { name: "Yandex", code: "YX" },
+  { name: "Mozilla", code: "MZ" },
+  { name: "Opera", code: "OP" },
+]);
+
 export default {
-  components: { Select, CatalogMenu },
+  name: "SearchNavbar",
+  components: {
+    RouterLink,
+    Select,
+    CatalogMenu,
+  },
   data() {
     return {
-      text1: "",
+      searchQuery: "",
       selectedPlace: null,
-      places: [
-        { name: "Amazon", code: "AZ" },
-        { name: "Google", code: "GG" },
-        { name: "Yandex", code: "YX" },
-        { name: "Mozilla", code: "MZ" },
-        { name: "Opera", code: "OP" },
-      ],
-      visible: false,
-      showMenu: false,
+      places: PLACES,
+      isCatalogVisible: false,
+      isMobileMenuOpen: false,
+      selectedCategory: null,
+      selectedFilters: {},
     };
   },
+  computed: {
+    ...mapStores(useScooterStore),
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        this.closeMobileMenu();
+        this.applyRouteQuery(to?.query || {});
+      },
+    },
+  },
   methods: {
-    toggleVisible() {
-      this.visible = !this.visible;
+    toggleCatalogVisibility() {
+      this.isCatalogVisible = !this.isCatalogVisible;
+    },
+    closeCatalog() {
+      this.isCatalogVisible = false;
+    },
+    toggleMobileMenu() {
+      this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    },
+    closeMobileMenu() {
+      this.isMobileMenuOpen = false;
+    },
+    onCategorySelect({ category }) {
+      if (!category) {
+        return;
+      }
+      this.selectedCategory = category;
+      this.closeCatalog();
+      this.closeMobileMenu();
+      this.executeSearch("category");
+    },
+    onFilterSelect({ group, selectedValues }) {
+      if (!group) {
+        return;
+      }
+      this.selectedFilters = {
+        ...this.selectedFilters,
+        [group.value]: selectedValues,
+      };
+      this.executeSearch("filter");
+    },
+    executeSearch(trigger) {
+      const query = this.buildSearchQuery();
+      const storePayload = this.buildStorePayload();
+      this.scooterStore.setQuery(storePayload);
+
+      if (!Object.keys(query).length && trigger !== "manual") {
+        return;
+      }
+      this.$router
+        .push({ path: "/catalog", query })
+        .catch((error) => {
+          if (error?.name !== "NavigationDuplicated") {
+            throw error;
+          }
+          if (trigger === "manual") {
+            this.searchQuery = "";
+          }
+        })
+        .then(() => {
+          if (trigger === "manual") {
+            this.searchQuery = "";
+          }
+        });
+    },
+    buildSearchQuery() {
+      const query = {};
+
+      if (this.searchQuery.trim()) {
+        query.q = this.searchQuery.trim();
+      }
+
+      if (this.selectedCategory?.value) {
+        query.category = this.selectedCategory.value;
+      }
+
+      Object.entries(this.selectedFilters).forEach(([group, values]) => {
+        if (Array.isArray(values) && values.length) {
+          query[group] = values.join(",");
+        }
+      });
+
+      if (this.selectedPlace?.code) {
+        query.place = this.selectedPlace.code;
+      }
+
+      return query;
+    },
+    buildStorePayload() {
+      return {
+        category: this.selectedCategory?.value ?? null,
+        filters: this.selectedFilters,
+        search: this.searchQuery.trim(),
+        place: this.selectedPlace?.code ?? null,
+      };
+    },
+    applyRouteQuery(query) {
+      const {
+        q = "",
+        category = null,
+        place = null,
+        ...restFilters
+      } = query;
+
+      this.searchQuery = typeof q === "string" ? q : "";
+
+      this.selectedCategory = category
+        ? { value: Array.isArray(category) ? category[0] : category }
+        : null;
+
+      const placeCode = Array.isArray(place) ? place[0] : place;
+      this.selectedPlace = placeCode
+        ? this.places.find((item) => item.code === placeCode) || {
+            name: placeCode,
+            code: placeCode,
+          }
+        : null;
+
+      const parsedFilters = {};
+      Object.entries(restFilters).forEach(([group, value]) => {
+        if (!value) {
+          return;
+        }
+        const valuesArray = Array.isArray(value)
+          ? value
+          : String(value)
+              .split(",")
+              .map((item) => item.trim())
+              .filter(Boolean);
+        if (valuesArray.length) {
+          parsedFilters[group] = valuesArray;
+        }
+      });
+
+      this.selectedFilters = parsedFilters;
+
+      this.scooterStore.setQuery({
+        category: this.selectedCategory?.value ?? null,
+        filters: parsedFilters,
+        search: this.searchQuery.trim(),
+        place: this.selectedPlace?.code ?? null,
+      });
     },
     toggleMode() {
       document.body.classList.toggle("my-app-dark");

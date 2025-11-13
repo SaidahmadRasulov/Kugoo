@@ -29,7 +29,7 @@
           <button
             class="bg-white shadow-2xl text-[var(--p-primary-color)] px-4 py-2 rounded-md md:text-lg text-sm"
           >
-            Перейти в католог
+            Перейти в каталог
           </button>
         </router-link>
 
@@ -37,7 +37,7 @@
         <div class="flex items-center gap-2 mt-6 select-none justify-start">
           <button
             @click="prevSlide"
-            :disabled="currentSlide === 0"
+            :disabled="isFirstSlide"
             class="cursor-pointer px-2 py-1 border border-white/30 text-lg text-white hover:bg-white/50 transition rounded-4xl disabled:opacity-50"
           >
             &#8592;
@@ -52,11 +52,11 @@
                 :style="{ width: progressWidth }"
               ></div>
             </div>
-            <span>{{ slides.length }}</span>
+            <span>{{ totalSlides }}</span>
           </div>
           <button
             @click="nextSlide"
-            :disabled="currentSlide === slides.length - 1"
+            :disabled="isLastSlide"
             class="px-2 cursor-pointer py-1 border border-white/30 rounded-4xl text-lg text-white hover:bg-white/50 transition disabled:opacity-50"
           >
             &#8594;
@@ -77,63 +77,70 @@
   </div>
 </template>
 <script>
-const defaultImage = new URL("../assets/home_image.png", import.meta.url).href;
+const DEFAULT_IMAGE = new URL("../assets/home_image.png", import.meta.url).href;
+const AUTOPLAY_DELAY = 5000;
+
+const SLIDES = Object.freeze([
+  {
+    title: "Электросамокаты Kugoo Kirin от официального дилера",
+    subtitle: "С бесплатной доставкой по РФ от 1 дня",
+    img: DEFAULT_IMAGE,
+  },
+  {
+    title: "Комфортные городские прогулки",
+    subtitle: "Подвеска, широкая дека и регулировка руля для максимального удобства",
+    img: DEFAULT_IMAGE,
+  },
+  {
+    title: "Безопасные ночные поездки",
+    subtitle: "Яркая подсветка, сигнализация и приложение для контроля маршрута",
+    img: DEFAULT_IMAGE,
+  },
+  {
+    title: "Сезонные скидки на новые модели",
+    subtitle: "Выгодные предложения весенней коллекции — только до конца месяца",
+    img: DEFAULT_IMAGE,
+  },
+  {
+    title: "Гарантия и сервисное обслуживание",
+    subtitle: "Бесплатная диагностика и поддержка в течение всего гарантийного срока",
+    img: DEFAULT_IMAGE,
+  },
+]);
 
 export default {
   name: "HomeHeader",
   data() {
     return {
-      slides: [
-        {
-          title: "Электросамокаты Kugoo Kirin от официального дилера",
-          subtitle: "с бесплатной доставкой по РФ от 1 дня",
-          img: defaultImage,
-        },
-        {
-          title: "Комфортные городские прогулки",
-          subtitle: "Подвеска, широкая дека и регулировка руля для максимального удобства",
-          img: defaultImage,
-        },
-        {
-          title: "Безопасные ночные поездки",
-          subtitle: "Яркая подсветка, сигнализация и приложение для контроля маршрута",
-          img: defaultImage,
-        },
-        {
-          title: "Сезонные скидки на новые модели",
-          subtitle: "Выгодные предложения весенней коллекции — только до конца месяца",
-          img: defaultImage,
-        },
-        {
-          title: "Гарантия и сервисное обслуживание",
-          subtitle: "Бесплатная диагностика и поддержка в течение всего гарантийного срока",
-          img: defaultImage,
-        },
-      ],
+      slides: SLIDES,
       currentSlide: 0,
-      autoplayDelay: 5000,
       autoplayTimer: null,
     };
   },
   computed: {
+    totalSlides() {
+      return this.slides.length;
+    },
     lastSlideIndex() {
       return this.slides.length - 1;
     },
+    isFirstSlide() {
+      return this.currentSlide === 0;
+    },
+    isLastSlide() {
+      return this.currentSlide === this.lastSlideIndex;
+    },
     progressWidth() {
-      if (!this.slides.length) {
+      if (!this.totalSlides) {
         return "0%";
       }
-      const percentage = ((this.currentSlide + 1) / this.slides.length) * 100;
-      return `${percentage}%`;
+      const ratio = (this.currentSlide + 1) / this.totalSlides;
+      return `${Math.round(ratio * 100)}%`;
     },
   },
   methods: {
     startAutoplay() {
-      this.stopAutoplay();
-      if (this.slides.length <= 1) {
-        return;
-      }
-      this.autoplayTimer = window.setInterval(this.autoAdvance, this.autoplayDelay);
+      this.restartAutoplay();
     },
     stopAutoplay() {
       if (this.autoplayTimer !== null) {
@@ -141,30 +148,26 @@ export default {
         this.autoplayTimer = null;
       }
     },
-    autoAdvance() {
-      if (this.currentSlide < this.lastSlideIndex) {
-        this.currentSlide += 1;
-      } else {
-        this.currentSlide = 0;
+    restartAutoplay() {
+      this.stopAutoplay();
+      if (this.totalSlides > 1) {
+        this.autoplayTimer = window.setInterval(this.autoAdvance, AUTOPLAY_DELAY);
       }
+    },
+    autoAdvance() {
+      this.currentSlide = this.isLastSlide ? 0 : this.currentSlide + 1;
     },
     nextSlide() {
-      if (this.currentSlide < this.lastSlideIndex) {
-        this.currentSlide += 1;
-      }
-      this.startAutoplay();
+      this.goToSlide(Math.min(this.currentSlide + 1, this.lastSlideIndex));
     },
     prevSlide() {
-      if (this.currentSlide > 0) {
-        this.currentSlide -= 1;
-      }
-      this.startAutoplay();
+      this.goToSlide(Math.max(this.currentSlide - 1, 0));
     },
     goToSlide(index) {
       if (index >= 0 && index <= this.lastSlideIndex) {
         this.currentSlide = index;
       }
-      this.startAutoplay();
+      this.restartAutoplay();
     },
   },
   mounted() {
