@@ -24,7 +24,10 @@ const createProduct = ({
   description,
   topSeller = false,
   img = "",
-  badge
+  badge,
+  battery = "2000 mAh",
+  power = "1,2 л.с.",
+  speed = "60 km/ч"
 }) => {
   const categoryMeta =
     SCOOTER_CATEGORIES.find((item) => item.value === category) ||
@@ -43,7 +46,10 @@ const createProduct = ({
     description,
     topSeller,
     img,
-    badge
+    badge,
+    battery,
+    power,
+    speed
   });
 };
 
@@ -59,6 +65,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Мощный электросамокат с усиленной подвеской и дальностью до 70 км.",
     topSeller: true,
     badge: "ХИТ",
+    battery: "12000 mAh",
+    power: "2,5 л.с.",
+    speed: "65 km/ч",
   }),
   createProduct({
     id: "kugoo-s3",
@@ -71,6 +80,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Лёгкий городской самокат с круиз-контролем и складным механизмом.",
     topSeller: true,
     badge: "Новинка",
+    battery: "7500 mAh",
+    power: "1,5 л.с.",
+    speed: "45 km/ч",
   }),
   createProduct({
     id: "kugoo-mini-s",
@@ -83,6 +95,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Компактная и безопасная модель для детей от 8 лет с родительским контролем.",
     topSeller: true,
     badge: "Для детей",
+    battery: "5000 mAh",
+    power: "0,8 л.с.",
+    speed: "25 km/ч",
   }),
   createProduct({
     id: "urban-mini",
@@ -95,6 +110,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Городской мини-самокат для подростков и взрослых, складывается за 5 секунд.",
     topSeller: true,
     badge: "Супер-цена",
+    battery: "6000 mAh",
+    power: "1,0 л.с.",
+    speed: "35 km/ч",
   }),
   createProduct({
     id: "quick-ride-v4",
@@ -107,6 +125,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Удобный самокат с сиденьем, регулируемым рулём и подвеской.",
     topSeller: true,
     badge: "Новинка",
+    battery: "8000 mAh",
+    power: "1,5 л.с.",
+    speed: "40 km/ч",
   }),
   createProduct({
     id: "citycoco-rapid",
@@ -119,6 +140,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Электроскутер с широкими колёсами и комфортным сиденьем для города.",
     topSeller: true,
     badge: "ХИТ",
+    battery: "20000 mAh",
+    power: "3,5 л.с.",
+    speed: "55 km/ч",
   }),
   createProduct({
     id: "legend-pro",
@@ -131,6 +155,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Премиальный самокат с запасом хода 90 км и гидравлическими тормозами.",
     topSeller: true,
     badge: "Рекомендуем",
+    battery: "15000 mAh",
+    power: "3,0 л.с.",
+    speed: "70 km/ч",
   }),
   createProduct({
     id: "swift-ride",
@@ -143,6 +170,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Компактный самокат для ежедневных поездок с быстрым зарядом за 3 часа.",
     topSeller: true,
     badge: "Супер-цена",
+    battery: "7500 mAh",
+    power: "1,5 л.с.",
+    speed: "45 km/ч",
   }),
   createProduct({
     id: "trailblazer",
@@ -155,6 +185,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Самокат для путешествий по пересечённой местности с амортизацией 160 мм.",
     topSeller: true,
     badge: "Эксклюзив",
+    battery: "12000 mAh",
+    power: "2,5 л.с.",
+    speed: "65 km/ч",
   }),
   createProduct({
     id: "metro-ride",
@@ -167,6 +200,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Складной самокат весом 12 кг, идеален для поездок с пересадками.",
     topSeller: true,
     badge: "ХИТ",
+    battery: "8000 mAh",
+    power: "1,5 л.с.",
+    speed: "40 km/ч",
   }),
   createProduct({
     id: "weekend-fun",
@@ -179,6 +215,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Яркий самокат для семейных прогулок и экскурсий по городу.",
     topSeller: true,
     badge: "Новинка",
+    battery: "6000 mAh",
+    power: "1,0 л.с.",
+    speed: "35 km/ч",
   }),
   createProduct({
     id: "eco-drive",
@@ -191,6 +230,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Экономичный самокат с сиденьем и функцией рекуперации энергии.",
     topSeller: true,
     badge: "Рекомендуем",
+    battery: "9000 mAh",
+    power: "1,8 л.с.",
+    speed: "50 km/ч",
   }),
   createProduct({
     id: "eco-walker",
@@ -203,6 +245,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     description: "Экологичный самокат с широкой платформой и режимом ограниченной скорости.",
     topSeller: true,
     badge: "Для пожилых",
+    battery: "7000 mAh",
+    power: "1,2 л.с.",
+    speed: "30 km/ч",
   }),
   createProduct({
     id: "cityglide-lite",
@@ -214,6 +259,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 28,
     description: "Ультралёгкий самокат весом 10 кг с магнитным тормозом.",
     badge: "Новинка",
+    battery: "6500 mAh",
+    power: "1,2 л.с.",
+    speed: "38 km/ч",
   }),
   createProduct({
     id: "urban-commuter",
@@ -225,6 +273,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 16,
     description: "Самокат с сиденьем, сумкой для вещей и режимом плавного старта.",
     badge: "Рекомендуем",
+    battery: "10000 mAh",
+    power: "2,0 л.с.",
+    speed: "55 km/ч",
   }),
   createProduct({
     id: "kidscoot-fun",
@@ -236,6 +287,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 18,
     description: "Яркий самокат с подсветкой платформы и ограничением скорости до 15 км/ч.",
     badge: "Для детей",
+    battery: "4000 mAh",
+    power: "0,6 л.с.",
+    speed: "15 km/ч",
   }),
   createProduct({
     id: "junior-scoot",
@@ -247,6 +301,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 24,
     description: "Детский самокат с регулируемой высотой руля и усиленной декой.",
     badge: "Для детей",
+    battery: "5000 mAh",
+    power: "0,8 л.с.",
+    speed: "25 km/ч",
   }),
   createProduct({
     id: "powerdrive-sport",
@@ -258,6 +315,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 10,
     description: "Спортивный электросамокат с агрессивным протектором и IPX5 защитой.",
     badge: "Эксклюзив",
+    battery: "11000 mAh",
+    power: "2,2 л.с.",
+    speed: "60 km/ч",
   }),
   createProduct({
     id: "speedster-x2",
@@ -269,6 +329,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 7,
     description: "Самокат повышенной мощности с двойным мотором и усиленными тормозами.",
     badge: "Эксклюзив",
+    battery: "18000 mAh",
+    power: "4,0 л.с.",
+    speed: "75 km/ч",
   }),
   createProduct({
     id: "family-cruise",
@@ -280,6 +343,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 5,
     description: "Электроскутер для поездок вдвоём с дополнительным сиденьем и спинкой.",
     badge: "Семейный",
+    battery: "22000 mAh",
+    power: "4,2 л.с.",
+    speed: "50 km/ч",
   }),
   createProduct({
     id: "citycoco-comfort",
@@ -291,6 +357,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 8,
     description: "Скутер с мягкой подвеской и держателем для смартфона.",
     badge: "Рекомендуем",
+    battery: "20000 mAh",
+    power: "3,5 л.с.",
+    speed: "55 km/ч",
   }),
   createProduct({
     id: "citycoco-lite",
@@ -302,6 +371,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 12,
     description: "Лёгкий электроскутер для передвижения по городским улицам.",
     badge: "Новинка",
+    battery: "16000 mAh",
+    power: "3,0 л.с.",
+    speed: "50 km/ч",
   }),
   createProduct({
     id: "x-motion-cargo",
@@ -313,6 +385,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 4,
     description: "Грузовой электровелосипед для дальних поездок и перевозки до 40 кг.",
     badge: "ХИТ",
+    battery: "25000 mAh",
+    power: "5,5 л.с.",
+    speed: "45 km/ч",
   }),
   createProduct({
     id: "voltrider-max",
@@ -324,6 +399,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 3,
     description: "Электробайк с полным приводом и запасом хода до 120 км.",
     badge: "Эксклюзив",
+    battery: "30000 mAh",
+    power: "6,5 л.с.",
+    speed: "60 km/ч",
   }),
   createProduct({
     id: "mountain-cruiser",
@@ -335,6 +413,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 6,
     description: "Электровелосипед с усиленной рамой для горных маршрутов и походов.",
     badge: "Рекомендуем",
+    battery: "28000 mAh",
+    power: "6,0 л.с.",
+    speed: "55 km/ч",
   }),
   createProduct({
     id: "nextgen-pro",
@@ -346,6 +427,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 5,
     description: "Внедорожный электробайк нового поколения с интеллектуальной трансмиссией.",
     badge: "Новинка",
+    battery: "30000 mAh",
+    power: "6,5 л.с.",
+    speed: "60 km/ч",
   }),
   createProduct({
     id: "bikego-city",
@@ -357,6 +441,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 11,
     description: "Городской электровелосипед для повседневных поездок и доставки.",
     badge: "Супер-цена",
+    battery: "20000 mAh",
+    power: "4,5 л.с.",
+    speed: "45 km/ч",
   }),
   createProduct({
     id: "clean-sweep-360",
@@ -368,6 +455,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 27,
     description: "Робот-пылесос с лазерной навигацией и управлением через приложение.",
     badge: "ХИТ",
+    battery: "5200 mAh",
+    power: "45 Вт",
+    speed: "0,3 м/с",
   }),
   createProduct({
     id: "robotom-advance",
@@ -379,6 +469,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 27,
     description: "Робот-пылесос с самоочисткой и поддержкой голосового управления.",
     badge: "Рекомендуем",
+    battery: "5500 mAh",
+    power: "50 Вт",
+    speed: "0,35 м/с",
   }),
   createProduct({
     id: "robovac-lite",
@@ -390,6 +483,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 40,
     description: "Компактный робот-пылесос с поддержкой голосовых помощников.",
     badge: "Для пожилых",
+    battery: "4000 mAh",
+    power: "35 Вт",
+    speed: "0,25 м/с",
   }),
   createProduct({
     id: "office-cleaner",
@@ -401,6 +497,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 14,
     description: "Профессиональный робот-пылесос с увеличенным резервуаром и HEPA-фильтром.",
     badge: "Новинка",
+    battery: "5000 mAh",
+    power: "45 Вт",
+    speed: "0,3 м/с",
   }),
   createProduct({
     id: "smartscale-pro",
@@ -412,6 +511,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 30,
     description: "Умные весы с анализом состава тела и синхронизацией по Bluetooth.",
     badge: "Супер-цена",
+    battery: "2000 mAh",
+    power: "4 датчика",
+    speed: "0,1 кг",
   }),
   createProduct({
     id: "bodyanalyzer-x",
@@ -423,6 +525,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 21,
     description: "Весы с анализатором жировой массы и Wi-Fi модулем.",
     badge: "Эксклюзив",
+    battery: "3000 mAh",
+    power: "8 датчиков",
+    speed: "0,05 кг",
   }),
   createProduct({
     id: "balance-fit",
@@ -434,6 +539,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 19,
     description: "Смарт-весы с голосовым помощником и анализом состава тела.",
     badge: "Рекомендуем",
+    battery: "2500 mAh",
+    power: "6 датчиков",
+    speed: "0,1 кг",
   }),
   createProduct({
     id: "precision-scale",
@@ -445,6 +553,9 @@ export const SCOOTER_CATALOG = Object.freeze([
     stock: 17,
     description: "Точные весы с расширенной аналитикой и мобильным приложением.",
     badge: "ХИТ",
+    battery: "3000 mAh",
+    power: "8 датчиков",
+    speed: "0,05 кг",
   }),
 ]);
 

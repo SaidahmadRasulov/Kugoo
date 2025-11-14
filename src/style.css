@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 body {
-  font-family: "Jost", sans-serif;
+  font-family: "Jost", sans-serif !important;
 }
 
 .custom_hover:hover {
